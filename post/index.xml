@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on AOC Blogs</title>
+    <link>http://localhost:1313/post/</link>
+    <description>Recent content in Posts on AOC Blogs</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Jan 2024 07:07:07 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Day 3</title>
+      <link>http://localhost:1313/post/my-first-post/</link>
+      <pubDate>Sun, 14 Jan 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/post/my-first-post/</guid>
+      <description>&lt;!-- ## Introduction&#xA;&#xA;This is **bold** text, and this is *emphasized* text.&#xA;&#xA;Visit the [Hugo](https://gohugo.io) website! --&gt;&#xA;&lt;!-- C:\Users\rajer\OneDrive\Documents\PBlogging\quickstart\static\images\Ankit.png --&gt;&#xA;&lt;img src=&#34;http://localhost:1313/images/Day3.png&#34; alt=&#34;Description&#34; width=&#34;800&#34;&gt;&#xA;&lt;h1 id=&#34;part-1&#34;&gt;Part 1&lt;/h1&gt;&#xA;&lt;!-- ![Description](/images/Day3.png){ width=300 height=200 } --&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The computer at the North Pole Toboggan Rental Shop is malfunctioning, and its memory has been corrupted. The program it was supposed to run contains multiplication (mul(X,Y)) instructions, but these instructions are mixed with invalid characters and junk data.&#xA;Our goal is to extract valid mul(X,Y) instructions from the corrupted memory, compute their results, and sum them up.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,270 @@
+<!DOCTYPE html> 
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Day 3 | AOC Blogs</title>
+  <meta property="og:title" content="Day 3 - AOC Blogs">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2024-01-14T07:07:07&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2024-01-14T07:07:07&#43;08:00">
+  
+  <meta name="keywords" content="">
+  <meta name="description" content="Day 3">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bulma-no-dark-mode.min.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+</head>
+<body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary" role="navigation" aria-label="dropdown navigation">
+  <div class="container">
+    <div class="navbar-brand"><a class="navbar-item " href="/">
+        AOC Blogs
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+      </div>
+    </div>
+  </div>
+</nav>
+
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered" data-pagefind-body>
+      <h1 class="title post-title is-spaced">
+        Day 3
+      </h1>
+      <h2 class="subtitle"><time>2024/01/14</time></h2>
+      
+    </header>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-three-fifths is-offset-one-fifth">
+      
+        <article class="content" id="post-content" data-pagefind-body><!-- ## Introduction
+
+This is **bold** text, and this is *emphasized* text.
+
+Visit the [Hugo](https://gohugo.io) website! -->
+<!-- C:\Users\rajer\OneDrive\Documents\PBlogging\quickstart\static\images\Ankit.png -->
+<img src="/images/Day3.png" alt="Description" width="800">
+<h1 id="part-1">Part 1</h1>
+<!-- ![Description](/images/Day3.png){ width=300 height=200 } -->
+<h2 id="introduction">Introduction</h2>
+<p>The computer at the North Pole Toboggan Rental Shop is malfunctioning, and its memory has been corrupted. The program it was supposed to run contains multiplication (mul(X,Y)) instructions, but these instructions are mixed with invalid characters and junk data.
+Our goal is to extract valid mul(X,Y) instructions from the corrupted memory, compute their results, and sum them up.</p>
+<h2 id="approach">Approach</h2>
+<p><strong>1. Input Parsing:</strong>
+Read the entire input as a single string, since the corrupted memory may have instructions spread across multiple lines.
+Identify valid mul(X,Y) patterns amidst random characters.</p>
+<p><strong>2. Finding Valid mul(X,Y) Instructions</strong>
+A valid multiplication instruction follows a strict format:
+Starts with mul(
+Followed by a valid integer (1 to 3 digits)
+Contains a comma ,
+Followed by another valid integer
+Ends with a closing parenthesis )
+Any extra spaces, symbols, or missing parts make an instruction invalid.</p>
+<p><strong>3. Extracting Numbers and Evaluating Expressions</strong>
+Scan through the string character by character to locate mul( patterns.
+Extract the two numbers within the parentheses while ensuring the structure remains valid.
+Multiply the two extracted numbers and add the result to the total sum.</p>
+<p><strong>4. Handling Edge Cases</strong>
+Ignore corrupted sequences like mul[3,7]!, mul ( 2 , 4 ), or mul(4*.
+Ensure that only numbers are extracted and that operations are performed only on valid mul(X,Y) instructions.</p>
+<h2 id="code-implementation">Code Implementation</h2>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+#define ll long long
+#define nl '\n'
+using namespace std;
+int findDigit(string str, int &amp;pos)
+{
+    int t = 0;
+    while (pos &lt; str.length() &amp;&amp; t &lt; 1000 &amp;&amp; isdigit(str[pos]))
+    {
+        t = t * 10 + (str[pos] - '0');
+        pos++;
+    }
+    return t;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    string str;
+    // Read input
+    char c;
+    while (scanf(&quot;%c&quot;, &amp;c) != EOF)
+    {
+        str += c;
+    }
+    int n = str.length();
+    ll ans = 0;
+    for (int i = 0; i &lt; n - 4; i++)
+    {
+        if (i + 3 &lt; n &amp;&amp; str[i] == 'm' &amp;&amp; str[i + 1] == 'u' &amp;&amp; str[i + 2] == 'l' &amp;&amp; str[i + 3] == '(')
+        {
+            int pos = i + 4;
+            ll num1 = findDigit(str, pos);
+            if (str[pos] == ',')
+            {
+                pos++;
+                ll num2 = findDigit(str, pos);
+                if (str[pos] == ')')
+                {
+                    ans += num1 * num2;
+                }
+            }
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; nl;
+    return 0;
+}
+</code></pre>
+<h2 id="complexity-analysis">Complexity Analysis</h2>
+<p>Scanning the string: O(N)</p>
+<p>Finding mul(X,Y): O(N)</p>
+<p>Extracting numbers: O(1) per match</p>
+<p>Overall Complexity: O(N) (since we scan and extract numbers in a single pass)</p>
+<h2 id="final-output">Final Output:</h2>
+<p>After processing all valid mul(X,Y) instructions, the total sum is printed as the final result.
+This solution efficiently scans the corrupted memory and extracts only valid instructions, ensuring correctness while ignoring noise in the input.</p>
+<hr>
+<h1 id="part-2">Part 2</h1>
+<h2 id="introduction-1">Introduction</h2>
+<p>After decoding multiplication instructions from the corrupted memory in Part 1, we now face a new challenge: handling conditional statements. These statements enable or disable certain mul() operations, affecting the final sum calculation.
+The two new instructions introduced are:</p>
+<p>do(): Enables all future mul() instructions.</p>
+<p>don&rsquo;t(): Disables all future mul() instructions.</p>
+<p>At the start of the program, all mul() instructions are enabled by default. However, encountering a don&rsquo;t() disables subsequent mul() operations until a do() appears to re-enable them.</p>
+<h2 id="solution-approach">Solution Approach</h2>
+<p>The approach is similar to Part 1, with additional logic for tracking do() and don&rsquo;t() instructions:
+Reading the input string containing corrupted memory data.
+Iterating through the string, checking for mul() operations.
+Tracking the effect of do() and don&rsquo;t(), ensuring multiplication happens only when enabled.
+Extracting the numbers inside mul(x, y) and adding their product to the result when conditions allow.</p>
+<h2 id="code-implementation-1">Code Implementation</h2>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+#define ll long long
+#define nl '\n'
+using namespace std;
+int findDigit(string str, int &amp;pos)
+{
+    int t = 0;
+    while (pos &lt; str.length() &amp;&amp; t &lt; 1000 &amp;&amp; isdigit(str[pos]))
+    {
+        t = t * 10 + (str[pos] - '0');
+        pos++;
+    }
+    return t;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    string str;
+    char c;
+    while (scanf(&quot;%c&quot;, &amp;c) != EOF)
+    {
+        str += c;
+    }
+    int n = str.length();
+
+    ll ans = 0;
+    bool flag = true;
+    for (int i = 0; i &lt; n - 4; i++)
+    {
+        if(str.substr(i,4)==&quot;do()&quot;)     
+        {
+            flag = true;
+        }
+        if(str.substr(i,7)==&quot;don't()&quot;)
+        {
+            flag = false;
+        }
+
+        if (flag)
+        {
+            if (i + 3 &lt; n &amp;&amp; str[i] == 'm' &amp;&amp; str[i + 1] == 'u' &amp;&amp; str[i + 2] == 'l' &amp;&amp; str[i + 3] == '(')
+            {
+                int pos = i;
+                if (pos + 4 &lt; n)
+                {
+                    pos += 4;
+                    ll num1 = findDigit(str, pos);
+                    if (str[pos] == ',')
+                    {
+                        pos++;
+                        ll num2 = findDigit(str, pos);
+                        if (str[pos] == ')')
+                        {
+                            ans += num1 * num2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    cout &lt;&lt; ans &lt;&lt; nl;
+    return 0;
+}
+</code></pre>
+<h2 id="explanation-of-code">Explanation of Code</h2>
+<p>We use findDigit() to extract numeric values from the corrupted string.
+The flag variable tracks whether multiplication is currently enabled or disabled.
+We iterate through the string, identifying do() and don&rsquo;t() to set flag accordingly.
+When mul(x, y) is found, we parse the numbers and add their product to the result only if flag is true.</p>
+</article>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>
+    
+    </p>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+
+<script src="http://localhost:1313/js/hulga.min.js" defer></script>
+
+  
+<link id="hlcss" rel="stylesheet" href="/css/monokai.min.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@5.0.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+</body>
+
+</html>
